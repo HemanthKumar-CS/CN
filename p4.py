@@ -24,14 +24,13 @@ def mod2div(dividend, divisor):
     else:
         tmp = xor('0'*pick, tmp)
     
-    checkword = tmp
-    return checkword
+    return tmp
 
 def encodeData(data, key):
     appended_data = data + '0'*(len(key)-1)
     remainder = mod2div(appended_data, key)
     codeword = data + remainder
-    return codeword
+    return codeword, remainder
 
 def decodeData(data, key):
     remainder = mod2div(data, key)
@@ -45,7 +44,9 @@ def main():
     key = input("Enter the Generating polynomial: ")
     
     print("\n----------------------------------------")
-    encoded_data = encodeData(data, key)
+    encoded_data, remainder = encodeData(data, key)
+    print("Data padded with n-1 zeros: ", data + '0'*(len(key)-1))
+    print("CRC or Check value is: ", remainder)
     print("Data to be transmitted: ", encoded_data)
     print("\n----------------------------------------")
 
